@@ -415,10 +415,15 @@ width: 100px;
   }
 </style>
 
+
+
+
+<!--------------------------------DAY 2--------------------------------->
+
 <style>
   @media screen and (max-width: 425px) and(max-height:740){
     .intro--banner h1 {
-          font-size: 2.3em; /*adjust this to what you want*/
+          font-size: 2.2em; /*adjust this to what you want*/
         }
         
         .intro--banner img {
@@ -434,11 +439,11 @@ width: 100px;
           font-size: 0.8em; /*adjust this to what you want*/
         }
         #more-button{
-          width: 100px;
+          width: 10000000000px;
         }
         #faceImage{
                     display: block;
-                    width: 230px;
+                    width: 220px;
   
         }
   
@@ -486,6 +491,87 @@ width: 100px;
   }
 </style>
 
+
+
+
+<style>
+  @media screen and (max-width: 425px) and (max-height: 740px) {
+    .intro {
+        /* example: decrease overall padding */
+        padding: 10px;
+    }
+    .intro--banner {
+        /* example: decrease padding or margin between elements */
+        padding: 10px;
+        flex-direction: row;
+    }
+    #introHeader {
+        /* example: reduce font size */
+        font-size: 2.5em; 
+    }
+    .intro--options {
+        /* example: decrease padding or margin */
+
+  display: flex;
+  justify-content: center; /* horizontal alignment */
+  align-items: center;/* vertical alignment */
+  flex-wrap: wrap; /* allows the items to wrap onto multiple lines if necessary */
+  margin-top: 50px;
+  
+       
+    }
+    #introOption1 {
+        /* example: reduce font size */
+        font-size: 0.9em; 
+        display: flex;
+        
+       
+    }
+    #introParagraph {
+        /* example: reduce font size */
+        display: flex;
+        font-size: 0.9em; 
+    }
+    #introOption2{
+      font-size: 0.9em; 
+      align-items: center;
+      display: flex;
+    }
+    #introParagraph2 {
+        /* example: reduce font size */
+        font-size: 0.9em; 
+        display: flex;
+        margin-bottom: 10em;
+     
+    }
+
+    #introOption3{
+    
+      font-size: 0.9em; 
+      align-items: center;
+      display: flex;
+    }
+    #introParagraph3{
+   
+      font-size: 0.9em; 
+        display: flex;
+        margin-bottom: 10em;
+    }
+
+
+    #faceImage {
+        /* example: limit width and auto-adjust height */
+        max-width: 80%; 
+        height: auto;
+    }
+    
+}
+
+</style>
+
+
+
+
   <!-----------------END OF TEST FOR MOBILE---------------->
 </head>
 <body>
@@ -526,13 +612,13 @@ width: 100px;
           <li class="l-section section section--is-active">
             <div class="intro">
               <div class="intro--banner">
-                <h1>Welcome<br>to my <br>Website! </h1>
+                <h1 id="introHeader">Welcome<br>to my <br>Website! </h1>
                 <a>
 
                 <button id="more-button">More
 <script>
 document.getElementById("more-button").onclick = function () {
-    location.href = "about.html";
+    location.href = "space.html";
 };
 </script>
 
@@ -551,17 +637,18 @@ document.getElementById("more-button").onclick = function () {
              
               </div>
               <div class="intro--options">
-                <a href="/home/theberbarian/Work/main pc usb backup/personal website/Global Free Website Template - Free-CSS.com/global-master/dev-profile-card/dist/">
-                  <h3>//<!--&amp;--> 1</h3>
-                  <p>My name is Nikolas Bermparis and this is my personal website.</p>
+                <a href="#0">
+                  <h3 id="introOption1">//<!--&amp;--> 1</h3>
+                  <p  id="introParagraph">My name is Nikolas Bermparis and this is my personal website.</p>
                 </a>
                 <a href="login.html">
-                  <h3>// 2</h3>
-                  <p>I'm a computer engineering student.</p>
+                  <h3 id="introOption2">// 2</h3>
+                  <p id="introParagraph2">I'm a computer engineering student.</p>
                 </a>
+                
                 <a href="#0">
-                  <h3>// <!--&amp;-->3</h3>
-                  <p>And i love creating stuff.</p>
+                  <h3 id="introOption3">// <!--&amp;--> 3</h3>
+                  <p id="introParagraph3">And i love creating stuff.</p>
                 </a>
               </div>
             </div>

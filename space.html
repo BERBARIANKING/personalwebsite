@@ -43,6 +43,36 @@
     let spaceshipImg = new Image();
     spaceshipImg.src = 'spaceship2.png';
 
+        // Event listener for touch input
+        let touchStartX = null;
+    let touchEndX = null;
+
+    canvas.addEventListener('touchstart', function(event) {
+      if (gameOver) return; // Don't fire if game over
+      touchStartX = event.touches[0].clientX;
+    });
+
+    canvas.addEventListener('touchmove', function(event) {
+      if (gameOver) return; // Don't fire if game over
+      touchEndX = event.touches[0].clientX;
+    });
+
+    canvas.addEventListener('touchend', function(event) {
+      if (gameOver) return; // Don't fire if game over
+
+      if (touchStartX !== null && touchEndX !== null) {
+        const swipeDistance = touchEndX - touchStartX;
+        if (swipeDistance > 0) {
+          spaceship.x += 20; // Swipe right, move spaceship right
+        } else if (swipeDistance < 0) {
+          spaceship.x -= 20; // Swipe left, move spaceship left
+        }
+      }
+
+      touchStartX = null;
+      touchEndX = null;
+    });
+
     // Create the invaders array and load their images
     let invaders = [];
     let invaderImgs = [];

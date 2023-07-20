@@ -6,17 +6,17 @@
     body { background: #000; color: #fff; }
     #gameCanvas { background: #fff; }
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: black;
-    }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+        }
 
-    canvas {
-      border: 1px solid white;
-    }
+        canvas {
+            border: 1px solid white;
+        }
   </style>
 </head>
 <body>
@@ -91,10 +91,10 @@
 
     // Event listener for keyboard input
     window.addEventListener('keydown', function(event) {
-      if (gameOver && event.code == 'Space') return; // Don't fire if game over
+      if(gameOver && event.code == 'Space') return;  // Don't fire if game over
 
       // Move spaceship left or right, or fire a bullet
-      switch (event.code) {
+      switch(event.code) {
         case 'ArrowLeft':
           spaceship.x -= 20;
           break;
@@ -102,7 +102,7 @@
           spaceship.x += 20;
           break;
         case 'Space':
-          if (bulletCooldown > 10) {
+          if(bulletCooldown > 10) {
             bullets.push({
               x: spaceship.x + spaceship.width / 2,
               y: spaceship.y,
@@ -130,7 +130,7 @@
     // Main game loop
     function gameLoop() {
       let now = Date.now();
-      if (gameOver && now - gameOverTime > 3000) return; // Stop game 3 sec after game over
+      if(gameOver && now - gameOverTime > 3000) return;  // Stop game 3 sec after game over
 
       // Clear the canvas for the new frame
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -139,28 +139,28 @@
       ctx.drawImage(backgroundImage, 0, backgroundY, canvas.width, canvas.height);
       ctx.drawImage(backgroundImage, 0, backgroundY - canvas.height, canvas.width, canvas.height);
       backgroundY++;
-      if (backgroundY >= canvas.height)
+      if(backgroundY >= canvas.height)
         backgroundY = 0;
 
       // Draw the spaceship unless the game is over
-      if (!gameOver) {
+      if(!gameOver) {
         ctx.drawImage(spaceshipImg, spaceship.x, spaceship.y, spaceship.width, spaceship.height);
       }
 
       // Draw the invaders and handle their movement and shooting
       let hitEdge = false;
-      for (let i = 0; i < invaders.length; i++) {
+      for(let i = 0; i < invaders.length; i++) {
         ctx.drawImage(invaderImgs[invaders[i].type], invaders[i].x, invaders[i].y, invaders[i].width, invaders[i].height);
 
         // Move the invader in the current direction
         invaders[i].x += invaderDirection * 0.4;
         // Check if an invader hit the edge
-        if (invaders[i].x < 0 || invaders[i].x > canvas.width - invaders[i].width) {
+        if(invaders[i].x < 0 || invaders[i].x > canvas.width - invaders[i].width) {
           hitEdge = true;
         }
 
         // Sometimes the invader shoots a bullet
-        if (Math.random() < 0.002) {
+        if(Math.random() < 0.002) {
           invaderBullets.push({
             x: invaders[i].x + invaders[i].width / 2,
             y: invaders[i].y + invaders[i].height,
@@ -170,8 +170,8 @@
         }
 
         // If an invader touches a cover block, end the game
-        for (let j = 0; j < blocks.length; j++) {
-          if (collision(invaders[i], blocks[j])) {
+        for(let j = 0; j < blocks.length; j++) {
+          if(collision(invaders[i], blocks[j])) {
             gameOver = true;
             gameOverTime = now;
             return;
@@ -180,21 +180,21 @@
       }
 
       // If an invader hit the edge, move all invaders down and change direction
-      if (hitEdge) {
+      if(hitEdge) {
         invaderDirection *= -1;
-        for (let i = 0; i < invaders.length; i++) {
+        for(let i = 0; i < invaders.length; i++) {
           invaders[i].y += 20;
         }
       }
 
       // Draw the bullets and handle their movement
       ctx.fillStyle = "#FF0000"; // Color of bullets
-      for (let i = 0; i < bullets.length; i++) {
+      for(let i = 0; i < bullets.length; i++) {
         ctx.fillRect(bullets[i].x, bullets[i].y, bullets[i].width, bullets[i].height);
         bullets[i].y -= 2;
 
         // Remove bullets that have gone off-screen
-        if (bullets[i].y < 0) {
+        if(bullets[i].y < 0) {
           bullets.splice(i, 1);
           i--;
         }
@@ -202,21 +202,21 @@
 
       // Draw the invader bullets and handle their movement
       ctx.fillStyle = "#00FF00"; // Color of invader bullets
-      for (let i = 0; i < invaderBullets.length; i++) {
+      for(let i = 0; i < invaderBullets.length; i++) {
         ctx.fillRect(invaderBullets[i].x, invaderBullets[i].y, invaderBullets[i].width, invaderBullets[i].height);
         invaderBullets[i].y += 2;
 
         // Remove invader bullets that have gone off-screen
-        if (invaderBullets[i].y > canvas.height) {
+        if(invaderBullets[i].y > canvas.height) {
           invaderBullets.splice(i, 1);
           i--;
         }
       }
 
       // Handle bullet-invader collisions
-      for (let i = 0; i < bullets.length; i++) {
-        for (let j = 0; j < invaders.length; j++) {
-          if (collision(bullets[i], invaders[j])) {
+      for(let i = 0; i < bullets.length; i++) {
+        for(let j = 0; j < invaders.length; j++) {
+          if(collision(bullets[i], invaders[j])) {
             // Remove the bullet and invader
             bullets.splice(i, 1);
             i--;
@@ -236,7 +236,7 @@
             score++;
 
             // If all invaders are destroyed, end the game
-            if (invaders.length === 0) {
+            if(invaders.length === 0) {
               gameOver = true;
               gameOverTime = now;
               return;
@@ -248,9 +248,9 @@
       }
 
       // Handle bullet-block collisions
-      for (let i = 0; i < bullets.length; i++) {
-        for (let j = 0; j < blocks.length; j++) {
-          if (collision(bullets[i], blocks[j])) {
+      for(let i = 0; i < bullets.length; i++) {
+        for(let j = 0; j < blocks.length; j++) {
+          if(collision(bullets[i], blocks[j])) {
             // Remove the bullet and block
             bullets.splice(i, 1);
             i--;
@@ -260,22 +260,66 @@
         }
       }
 
-      // ... (Your existing code for handling invader bullet-block collisions and other game logic)
+      // Handle invader bullet-block collisions
+      for(let i = 0; i < invaderBullets.length; i++) {
+        for(let j = 0; j < blocks.length; j++) {
+          if(collision(invaderBullets[i], blocks[j])) {
+            // Remove the invader bullet and block
+            invaderBullets.splice(i, 1);
+            i--;
+            blocks.splice(j, 1);
+            break;
+          }
+        }
+      }
+
+      // Handle invader bullet-spaceship collisions
+      for(let i = 0; i < invaderBullets.length; i++) {
+        if(collision(invaderBullets[i], spaceship)) {
+          // Remove the invader bullet and end the game
+          invaderBullets.splice(i, 1);
+          gameOver = true;
+          gameOverTime = now;
+          break;
+        }
+      }
+
+      // Handle spaceship bullet-invader bullet collisions
+      for(let i = 0; i < bullets.length; i++) {
+        for(let j = 0; j < invaderBullets.length; j++) {
+          if(collision(bullets[i], invaderBullets[j])) {
+            // Create debris at bullet collision
+            debris.push({
+              x: bullets[i].x,
+              y: bullets[i].y,
+              vx: (Math.random() * 2) - 1,
+              vy: -Math.random() * 2,
+              life: 1.0
+            });
+
+            // Remove both bullets
+            bullets.splice(i, 1);
+            invaderBullets.splice(j, 1);
+            i--;
+            break;
+          }
+        }
+      }
 
       // Draw the protective blocks
       ctx.fillStyle = "#03e9f4"; // Color of protective blocks
-      for (let i = 0; i < blocks.length; i++) {
+      for(let i = 0; i < blocks.length; i++) {
         ctx.fillRect(blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height);
       }
 
       // Draw the debris and handle their movement
       ctx.fillStyle = "#FFFFFF"; // Color of debris
-      for (let i = 0; i < debris.length; i++) {
+      for(let i = 0; i < debris.length; i++) {
         ctx.fillRect(debris[i].x, debris[i].y, 2, 2);
         debris[i].x += debris[i].vx;
         debris[i].y += debris[i].vy;
         debris[i].life -= 0.01;
-        if (debris[i].life <= 0) {
+        if(debris[i].life <= 0) {
           debris.splice(i, 1);
           i--;
         }
@@ -286,14 +330,14 @@
       ctx.fillText('Score: ' + score, 10, 30);
 
       // Handle game over state
-      if (gameOver) {
-        // Load and draw the picture when the game ends.
-        const img = new Image();
-        img.onload = function () {
-          ctx.drawImage(img, canvas.width / 2 - img.width / 2, canvas.height / 2 - img.height / 2);
-        };
-        img.src = 'gameover.png'; // The path to your picture.
-      }
+      if(gameOver) {
+          // Load and draw the picture when the game ends.
+    const img = new Image();
+    img.onload = function () {
+      context.drawImage(img, canvas.width / 2 - img.width / 2, canvas.height / 2 - img.height / 2);
+    };
+    img.src = 'gameover.png';  // The path to your picture.
+  }
 
       // Increment the bullet cooldown
       bulletCooldown++;

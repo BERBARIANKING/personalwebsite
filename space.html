@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Space Invaders</title>
+  <title>Nick Ber.</title>
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+  <embed src="space.mp3" loop="true" autostart="true" width="2"
+  height="0">
   <style>
     body { background: #000; color: #fff; }
     #gameCanvas { background: #fff; }
@@ -83,8 +86,25 @@
       }
     }
 
+      // Audio setup for sound effects
+      let bulletSound = new Audio('bullet1.mp3');
+    let invaderDestroyedSound = new Audio('explosion.mp3');
+
+
     // Set the initial bullet cooldown
     let bulletCooldown = 0;
+
+     // Function to play the bullet sound effect
+     function playBulletSound() {
+      bulletSound.currentTime = 0;
+      bulletSound.play();
+    }
+
+      // Function to play the invader destroyed sound effect
+      function playInvaderDestroyedSound() {
+      invaderDestroyedSound.currentTime = 0;
+      invaderDestroyedSound.play();
+    }
 
     // Initialize the score
     let score = 0;
@@ -102,7 +122,7 @@
           spaceship.x += 20;
           break;
         case 'Space':
-          if(bulletCooldown > 10) {
+        if(bulletCooldown > 180) { // 180 frames ~ 3 seconds
             bullets.push({
               x: spaceship.x + spaceship.width / 2,
               y: spaceship.y,
@@ -110,11 +130,13 @@
               height: 10
             });
             bulletCooldown = 0;
+
+            // Play bullet sound effect when firing
+            playBulletSound();
           }
           break;
       }
     });
-
     // Collision detection function
     function collision(rect1, rect2) {
       return rect1.x < rect2.x + rect2.width &&
@@ -234,6 +256,9 @@
 
             // Increment the score
             score++;
+
+             // If an invader is destroyed, play the invader destroyed sound effect
+             playInvaderDestroyedSound();
 
             // If all invaders are destroyed, end the game
             if(invaders.length === 0) {
